@@ -1,8 +1,8 @@
-package by.liashuk.exercisesProject.controller;
+package by.liashuk.exerciseProject.controller;
 
-import by.liashuk.exercisesProject.dto.AuthenticationRequest;
-import by.liashuk.exercisesProject.model.Users;
-import by.liashuk.exercisesProject.service.UserService;
+import by.liashuk.exerciseProject.dto.AuthenticationRequest;
+import by.liashuk.exerciseProject.model.Users;
+import by.liashuk.exerciseProject.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

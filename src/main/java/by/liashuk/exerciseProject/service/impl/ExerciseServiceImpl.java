@@ -1,14 +1,14 @@
-package by.liashuk.exercisesProject.service.impl;
+package by.liashuk.exerciseProject.service.impl;
 
-import by.liashuk.exercisesProject.dto.Converter;
-import by.liashuk.exercisesProject.dto.DateRange;
-import by.liashuk.exercisesProject.exceptions.NoSuchRecordException;
-import by.liashuk.exercisesProject.model.Exercise;
-import by.liashuk.exercisesProject.dto.ExercisesReport;
-import by.liashuk.exercisesProject.model.Users;
-import by.liashuk.exercisesProject.repository.ExerciseRepository;
-import by.liashuk.exercisesProject.repository.UserRepository;
-import by.liashuk.exercisesProject.service.ExerciseService;
+import by.liashuk.exerciseProject.dto.Converter;
+import by.liashuk.exerciseProject.dto.DateRange;
+import by.liashuk.exerciseProject.exceptions.NoSuchRecordException;
+import by.liashuk.exerciseProject.model.Exercise;
+import by.liashuk.exerciseProject.dto.ExercisesReport;
+import by.liashuk.exerciseProject.model.Users;
+import by.liashuk.exerciseProject.repository.ExerciseRepository;
+import by.liashuk.exerciseProject.repository.UserRepository;
+import by.liashuk.exerciseProject.service.ExerciseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

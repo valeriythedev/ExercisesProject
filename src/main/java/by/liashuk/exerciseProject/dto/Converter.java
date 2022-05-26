@@ -1,7 +1,7 @@
-package by.liashuk.exercisesProject.dto;
+package by.liashuk.exerciseProject.dto;
 
-import by.liashuk.exercisesProject.exceptions.InvalidDataException;
-import by.liashuk.exercisesProject.model.Exercise;
+import by.liashuk.exerciseProject.exceptions.InvalidDataException;
+import by.liashuk.exerciseProject.model.Exercise;
 import org.springframework.stereotype.Component;
 
 @Component

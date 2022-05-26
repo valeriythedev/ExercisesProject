@@ -1,4 +1,4 @@
-package by.liashuk.exercisesProject.exceptions;
+package by.liashuk.exerciseProject.exceptions;
 
 public class NoSuchRecordException extends RuntimeException {
 

@@ -1,9 +1,9 @@
-package by.liashuk.exercisesProject.service.impl;
+package by.liashuk.exerciseProject.service.impl;
 
-import by.liashuk.exercisesProject.exceptions.NoSuchRecordException;
-import by.liashuk.exercisesProject.model.Users;
-import by.liashuk.exercisesProject.repository.UserRepository;
-import by.liashuk.exercisesProject.service.UserService;
+import by.liashuk.exerciseProject.exceptions.NoSuchRecordException;
+import by.liashuk.exerciseProject.model.Users;
+import by.liashuk.exerciseProject.repository.UserRepository;
+import by.liashuk.exerciseProject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

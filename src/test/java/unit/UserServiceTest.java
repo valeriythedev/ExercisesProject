@@ -1,8 +1,8 @@
 package unit;
 
-import by.liashuk.exercisesProject.application.Application;
-import by.liashuk.exercisesProject.model.Users;
-import by.liashuk.exercisesProject.service.UserService;
+import by.liashuk.exerciseProject.application.Application;
+import by.liashuk.exerciseProject.model.Users;
+import by.liashuk.exerciseProject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

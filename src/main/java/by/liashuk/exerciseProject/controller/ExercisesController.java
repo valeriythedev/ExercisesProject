@@ -1,10 +1,10 @@
-package by.liashuk.exercisesProject.controller;
+package by.liashuk.exerciseProject.controller;
 
-import by.liashuk.exercisesProject.dto.DateRange;
-import by.liashuk.exercisesProject.model.Exercise;
-import by.liashuk.exercisesProject.dto.ExercisesReport;
-import by.liashuk.exercisesProject.model.Users;
-import by.liashuk.exercisesProject.service.ExerciseService;
+import by.liashuk.exerciseProject.dto.DateRange;
+import by.liashuk.exerciseProject.model.Exercise;
+import by.liashuk.exerciseProject.dto.ExercisesReport;
+import by.liashuk.exerciseProject.model.Users;
+import by.liashuk.exerciseProject.service.ExerciseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;

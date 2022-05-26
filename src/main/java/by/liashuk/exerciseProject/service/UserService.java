@@ -1,6 +1,6 @@
-package by.liashuk.exercisesProject.service;
+package by.liashuk.exerciseProject.service;
 
-import by.liashuk.exercisesProject.model.Users;
+import by.liashuk.exerciseProject.model.Users;
 
 public interface UserService {
 

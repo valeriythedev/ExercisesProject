@@ -1,4 +1,4 @@
-package by.liashuk.exercisesProject.exceptions.controller;
+package by.liashuk.exerciseProject.exceptions.controller;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

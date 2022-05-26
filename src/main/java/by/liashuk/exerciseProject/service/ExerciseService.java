@@ -1,8 +1,8 @@
-package by.liashuk.exercisesProject.service;
+package by.liashuk.exerciseProject.service;
 
-import by.liashuk.exercisesProject.dto.DateRange;
-import by.liashuk.exercisesProject.model.Exercise;
-import by.liashuk.exercisesProject.dto.ExercisesReport;
+import by.liashuk.exerciseProject.dto.DateRange;
+import by.liashuk.exerciseProject.model.Exercise;
+import by.liashuk.exerciseProject.dto.ExercisesReport;
 
 public interface ExerciseService {
 

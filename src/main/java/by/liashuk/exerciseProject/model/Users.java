@@ -1,4 +1,4 @@
-package by.liashuk.exercisesProject.model;
+package by.liashuk.exerciseProject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
