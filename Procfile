@@ -1,1 +1,1 @@
-web: java -jar target/TestProject-1.0-SNAPSHOT.jar
+web: java -jar -Dserver.port=$PORT target/TestProject-1.0-SNAPSHOT.jar
