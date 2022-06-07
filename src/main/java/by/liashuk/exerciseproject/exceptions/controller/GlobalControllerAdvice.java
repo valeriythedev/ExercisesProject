@@ -1,9 +1,9 @@
-package by.liashuk.exerciseProject.exceptions.controller;
+package by.liashuk.exerciseproject.exceptions.controller;
 
 
-import by.liashuk.exerciseProject.exceptions.InvalidDataException;
-import by.liashuk.exerciseProject.exceptions.NoSuchRecordException;
-import by.liashuk.exerciseProject.exceptions.NotAuthorizedException;
+import by.liashuk.exerciseproject.exceptions.InvalidDataException;
+import by.liashuk.exerciseproject.exceptions.NoSuchRecordException;
+import by.liashuk.exerciseproject.exceptions.NotAuthorizedException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

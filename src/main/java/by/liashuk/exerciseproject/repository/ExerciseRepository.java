@@ -1,6 +1,6 @@
-package by.liashuk.exerciseProject.repository;
+package by.liashuk.exerciseproject.repository;
 
-import by.liashuk.exerciseProject.model.Exercise;
+import by.liashuk.exerciseproject.model.Exercise;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

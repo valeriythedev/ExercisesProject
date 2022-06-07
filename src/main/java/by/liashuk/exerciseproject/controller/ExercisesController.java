@@ -1,10 +1,10 @@
-package by.liashuk.exerciseProject.controller;
+package by.liashuk.exerciseproject.controller;
 
-import by.liashuk.exerciseProject.dto.DateRange;
-import by.liashuk.exerciseProject.model.Exercise;
-import by.liashuk.exerciseProject.dto.ExercisesReport;
-import by.liashuk.exerciseProject.model.Users;
-import by.liashuk.exerciseProject.service.ExerciseService;
+import by.liashuk.exerciseproject.dto.DateRange;
+import by.liashuk.exerciseproject.model.Exercise;
+import by.liashuk.exerciseproject.dto.ExercisesReport;
+import by.liashuk.exerciseproject.model.User;
+import by.liashuk.exerciseproject.service.ExerciseService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -39,7 +39,7 @@ public class ExercisesController {
     @PostMapping
     @Operation(summary = "Creating exercise report")
     public Exercise create(@RequestBody @Parameter(description = "Run report body") Exercise exercise, HttpServletRequest request) {
-        Users user = (Users) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         if(!(user == null)) {
             return exerciseService.create(exercise, user.getId());
         }
@@ -50,7 +50,7 @@ public class ExercisesController {
     @GetMapping
     @Operation(summary = "Getting exercise report in data range")
     public ExercisesReport getReportByARange(@RequestBody @Parameter(description = "Date range body") DateRange dateRange, HttpServletRequest request) {
-        Users user = (Users) request.getSession().getAttribute("user");
+        User user = (User) request.getSession().getAttribute("user");
         if(!(user == null)) {
             return exerciseService.getReportForARange(dateRange, user.getId());
         }

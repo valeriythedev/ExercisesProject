@@ -1,4 +1,4 @@
-package by.liashuk.exerciseProject.application;
+package by.liashuk.exerciseproject.application;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -7,8 +7,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@ComponentScan("by.liashuk.exerciseProject.**")
-@EnableJpaRepositories("by.liashuk.exerciseProject.repository")
+@ComponentScan("by.liashuk.exerciseproject.**")
+@EnableJpaRepositories("by.liashuk.exerciseproject.repository")
 @EntityScan("by.liashuk.exerciseProject.model")
 public class Application {
     public static void main(String[] args) {

@@ -1,10 +1,10 @@
 package unit;
 
-import by.liashuk.exerciseProject.application.Application;
-import by.liashuk.exerciseProject.dto.DateRange;
-import by.liashuk.exerciseProject.dto.ExercisesReport;
-import by.liashuk.exerciseProject.model.Exercise;
-import by.liashuk.exerciseProject.service.ExerciseService;
+import by.liashuk.exerciseproject.application.Application;
+import by.liashuk.exerciseproject.dto.DateRange;
+import by.liashuk.exerciseproject.dto.ExercisesReport;
+import by.liashuk.exerciseproject.model.Exercise;
+import by.liashuk.exerciseproject.service.ExerciseService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

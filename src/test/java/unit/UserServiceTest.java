@@ -1,8 +1,8 @@
 package unit;
 
-import by.liashuk.exerciseProject.application.Application;
-import by.liashuk.exerciseProject.model.Users;
-import by.liashuk.exerciseProject.service.UserService;
+import by.liashuk.exerciseproject.application.Application;
+import by.liashuk.exerciseproject.model.User;
+import by.liashuk.exerciseproject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +27,11 @@ public class UserServiceTest {
     @Test
     void shouldCreateUser() {
         assertNotNull(userService);
-        Users expectedUser = new Users(null,"asd","asd");
-        Users savedUser = userService.create(expectedUser);
+        User expectedUser = new User(null,"asd","asd");
+        User savedUser = userService.create(expectedUser);
         assertNotNull(savedUser);
         expectedUser.setId(savedUser.getId());
-        Users actualUser = userService.getById(expectedUser.getId());
+        User actualUser = userService.getById(expectedUser.getId());
         assertEquals(expectedUser, actualUser);
         log.info("Executed test in UserServiceTest shouldCreateUser() expectedUser: {}, actualUser: {}",expectedUser,actualUser);
     }
@@ -39,8 +39,8 @@ public class UserServiceTest {
     @Test
     void shouldGetUserByLoginAndPassword() {
         assertNotNull(userService);
-        Users expectedUser = new Users(3, "123", "123");
-        Users actualUser = userService.getByLoginAndPassword(expectedUser.getLogin(), expectedUser.getPassword());
+        User expectedUser = new User(3, "123", "123");
+        User actualUser = userService.getByLoginAndPassword(expectedUser.getLogin(), expectedUser.getPassword());
         assertEquals(expectedUser, actualUser);
         log.info("Executed test in UserServiceTest shouldGetUserByLoginAndPassword() login: {}, password: {}",expectedUser.getLogin(),expectedUser.getPassword());
     }

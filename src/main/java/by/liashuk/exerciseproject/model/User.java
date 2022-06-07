@@ -1,4 +1,4 @@
-package by.liashuk.exerciseProject.model;
+package by.liashuk.exerciseproject.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,7 +23,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "users")
 @Schema(description = "Entity of user")
-public class Users {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -54,8 +54,8 @@ public class Users {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Users users = (Users) o;
-        return id.equals(users.id) && Objects.equals(login, users.login) && Objects.equals(password, users.password);
+        User user = (User) o;
+        return id.equals(user.id) && Objects.equals(login, user.login) && Objects.equals(password, user.password);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class Users {
         return Objects.hash(id, login, password);
     }
 
-    public Users(Integer id, String login, String password) {
+    public User(Integer id, String login, String password) {
         this.id = id;
         this.login = login;
         this.password = password;

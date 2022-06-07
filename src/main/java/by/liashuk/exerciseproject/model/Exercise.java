@@ -1,4 +1,4 @@
-package by.liashuk.exerciseProject.model;
+package by.liashuk.exerciseproject.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -51,7 +51,7 @@ public class Exercise {
             joinColumns = {@JoinColumn(name = "exercises_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")})
     @JsonIgnore
-    private List<Users> userList;
+    private List<User> userList;
 
     @Override
     public String toString() {

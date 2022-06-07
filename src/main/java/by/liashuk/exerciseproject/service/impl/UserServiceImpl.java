@@ -1,9 +1,9 @@
-package by.liashuk.exerciseProject.service.impl;
+package by.liashuk.exerciseproject.service.impl;
 
-import by.liashuk.exerciseProject.exceptions.NoSuchRecordException;
-import by.liashuk.exerciseProject.model.Users;
-import by.liashuk.exerciseProject.repository.UserRepository;
-import by.liashuk.exerciseProject.service.UserService;
+import by.liashuk.exerciseproject.exceptions.NoSuchRecordException;
+import by.liashuk.exerciseproject.model.User;
+import by.liashuk.exerciseproject.repository.UserRepository;
+import by.liashuk.exerciseproject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,19 +20,19 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Users create(Users user) {
+    public User create(User user) {
         return userRepository.save(user);
     }
 
     @Override
-    public Users getById(Integer id) {
+    public User getById(Integer id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchRecordException(String.format("User with id=%s not found",id)));
     }
 
     @Override
-    public Users getByLoginAndPassword(String login, String password) {
-        Users user = userRepository.findByLogin(login);
+    public User getByLoginAndPassword(String login, String password) {
+        User user = userRepository.findByLogin(login);
         if(user == null) {
             throw new NoSuchRecordException("Runner with login: "+login+", not found.");
         }

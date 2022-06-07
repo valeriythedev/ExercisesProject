@@ -1,14 +1,14 @@
-package by.liashuk.exerciseProject.service.impl;
+package by.liashuk.exerciseproject.service.impl;
 
-import by.liashuk.exerciseProject.dto.Converter;
-import by.liashuk.exerciseProject.dto.DateRange;
-import by.liashuk.exerciseProject.exceptions.NoSuchRecordException;
-import by.liashuk.exerciseProject.model.Exercise;
-import by.liashuk.exerciseProject.dto.ExercisesReport;
-import by.liashuk.exerciseProject.model.Users;
-import by.liashuk.exerciseProject.repository.ExerciseRepository;
-import by.liashuk.exerciseProject.repository.UserRepository;
-import by.liashuk.exerciseProject.service.ExerciseService;
+import by.liashuk.exerciseproject.dto.Converter;
+import by.liashuk.exerciseproject.dto.DateRange;
+import by.liashuk.exerciseproject.exceptions.NoSuchRecordException;
+import by.liashuk.exerciseproject.model.Exercise;
+import by.liashuk.exerciseproject.dto.ExercisesReport;
+import by.liashuk.exerciseproject.model.User;
+import by.liashuk.exerciseproject.repository.ExerciseRepository;
+import by.liashuk.exerciseproject.repository.UserRepository;
+import by.liashuk.exerciseproject.service.ExerciseService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -34,9 +34,9 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public Exercise create(Exercise exercise, Integer userId) {
         Exercise checkedExerciseFields = converter.checkRunnerFields(exercise);
-        Users user = userRepository.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new NoSuchRecordException(String.format("User with id=%s not found",userId)));
-        List<Users> userList = new ArrayList<>();
+        List<User> userList = new ArrayList<>();
         userList.add(user);
         checkedExerciseFields.setUserList(userList);
         return exerciseRepository.save(checkedExerciseFields);

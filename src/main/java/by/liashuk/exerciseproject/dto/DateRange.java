@@ -1,4 +1,4 @@
-package by.liashuk.exerciseProject.dto;
+package by.liashuk.exerciseproject.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;

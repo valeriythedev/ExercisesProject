@@ -1,4 +1,4 @@
-package by.liashuk.exerciseProject.exceptions;
+package by.liashuk.exerciseproject.exceptions;
 
 public class NotAuthorizedException extends RuntimeException {
 

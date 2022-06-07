@@ -1,8 +1,8 @@
-package by.liashuk.exerciseProject.controller;
+package by.liashuk.exerciseproject.controller;
 
-import by.liashuk.exerciseProject.dto.AuthenticationRequest;
-import by.liashuk.exerciseProject.model.Users;
-import by.liashuk.exerciseProject.service.UserService;
+import by.liashuk.exerciseproject.dto.AuthenticationRequest;
+import by.liashuk.exerciseproject.model.User;
+import by.liashuk.exerciseproject.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -36,15 +36,15 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/register")
     @Operation(summary = "Registering user")
-    public Users register(@RequestBody @Parameter(description = "User body") Users user) {
+    public User register(@RequestBody @Parameter(description = "User body") User user) {
         return userService.create(user);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     @Operation(summary = "Login in with login and password")
-    public Users login(@RequestBody @Parameter(description = "AuthenticationRequest body") AuthenticationRequest authenticationRequest, HttpServletRequest request) {
-        Users user = userService.getByLoginAndPassword(authenticationRequest.getLogin(), authenticationRequest.getPassword());
+    public User login(@RequestBody @Parameter(description = "AuthenticationRequest body") AuthenticationRequest authenticationRequest, HttpServletRequest request) {
+        User user = userService.getByLoginAndPassword(authenticationRequest.getLogin(), authenticationRequest.getPassword());
         request.getSession().setAttribute("user", user);
         return user;
     }
