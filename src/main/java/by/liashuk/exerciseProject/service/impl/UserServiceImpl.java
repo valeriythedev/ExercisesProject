@@ -21,16 +21,13 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Users create(Users user) {
-        log.info("IN UserServiceImpl create() user: {}",user);
         return userRepository.save(user);
     }
 
     @Override
     public Users getById(Integer id) {
-        Users user = userRepository.findById(id)
+        return userRepository.findById(id)
                 .orElseThrow(() -> new NoSuchRecordException(String.format("User with id=%s not found",id)));
-        log.info("IN UserServiceImpl getById() user with id: {}",id);
-        return user;
     }
 
     @Override
@@ -39,7 +36,6 @@ public class UserServiceImpl implements UserService {
         if(user == null) {
             throw new NoSuchRecordException("Runner with login: "+login+", not found.");
         }
-        log.info("IN RunnerServiceImpl getByLoginAndPassword() login: {}, password: {}",login,password);
         if(login.equals(user.getLogin())) {
             if(password.equals(user.getPassword())) {
                 return user;

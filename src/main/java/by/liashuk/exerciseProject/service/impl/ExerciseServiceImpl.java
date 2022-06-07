@@ -39,16 +39,13 @@ public class ExerciseServiceImpl implements ExerciseService {
         List<Users> userList = new ArrayList<>();
         userList.add(user);
         checkedExerciseFields.setUserList(userList);
-        log.info("IN ExerciseServiceImpl create() runner: {}", checkedExerciseFields);
         return exerciseRepository.save(checkedExerciseFields);
     }
 
     @Override
     public Exercise getById(Integer id) {
-        Exercise exercise = exerciseRepository.findById(id)
+        return exerciseRepository.findById(id)
                 .orElseThrow(() -> new NoSuchRecordException(String.format("Exercise with id=%s not found",id)));
-        log.info("IN ExerciseServiceImpl getById() id: {}", id);
-        return exercise;
     }
 
     @Override
@@ -69,8 +66,6 @@ public class ExerciseServiceImpl implements ExerciseService {
             }
         }
         averageSpeed = averageSpeedForRun/runsCount;
-        ExercisesReport report = new ExercisesReport(dateRange, averageSpeed+" m/s", averageTime+" minutes", totalDistance+"m");
-        log.info("IN ExerciseServiceImpl getReportForARange() of user with id: {}, report: {}",userId,report);
-        return report;
+        return new ExercisesReport(dateRange, averageSpeed+" m/s", averageTime+" minutes", totalDistance+"m");
     }
 }
