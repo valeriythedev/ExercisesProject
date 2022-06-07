@@ -11,7 +11,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,10 +21,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.servlet.http.HttpServletRequest;
 
 @RestController
-@RequestMapping(value = "api/users/",
+@RequestMapping(value = "api/exercises/",
     produces = MediaType.APPLICATION_JSON_VALUE,
     consumes = MediaType.APPLICATION_JSON_VALUE)
-@Tag(name = "Runs Controller",
+@Tag(name = "Exercises Controller",
         description = "Interaction with users exercises")
 public class ExercisesController {
 
@@ -47,7 +47,7 @@ public class ExercisesController {
     }
 
     @ResponseStatus(HttpStatus.OK)
-    @PatchMapping
+    @GetMapping
     @Operation(summary = "Getting exercise report in data range")
     public ExercisesReport getReportByARange(@RequestBody @Parameter(description = "Date range body") DateRange dateRange, HttpServletRequest request) {
         Users user = (Users) request.getSession().getAttribute("user");
