@@ -1,48 +1,59 @@
 package by.liashuk.exerciseproject.service.impl;
 
 import by.liashuk.exerciseproject.exceptions.NoSuchRecordException;
+import by.liashuk.exerciseproject.model.Role;
 import by.liashuk.exerciseproject.model.User;
+import by.liashuk.exerciseproject.repository.RoleRepository;
 import by.liashuk.exerciseproject.repository.UserRepository;
 import by.liashuk.exerciseproject.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
-@Slf4j
 public class UserServiceImpl implements UserService {
 
+    private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
 
     @Autowired
-    public UserServiceImpl(UserRepository userRepository) {
+    public UserServiceImpl(BCryptPasswordEncoder encoder, UserRepository userRepository, RoleRepository roleRepository) {
+        this.encoder = encoder;
         this.userRepository = userRepository;
+        this.roleRepository = roleRepository;
     }
 
     @Override
-    public User create(User user) {
+    public User create(User user, String roleName) {
+        Role role = roleRepository.findByRoleName("ROLE_"+roleName)
+                .orElseThrow(() -> new NullPointerException("No role found."));
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(role);
+        user.setRoles(roleList);
+        user.setPassword(encoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
     @Override
     public User getById(Integer id) {
         return userRepository.findById(id)
-                .orElseThrow(() -> new NoSuchRecordException(String.format("User with id=%s not found",id)));
+                .orElseThrow(() -> new NullPointerException("User not found"));
     }
 
     @Override
     public User getByLoginAndPassword(String login, String password) {
-        User user = userRepository.findByLogin(login);
-        if(user == null) {
-            throw new NoSuchRecordException("Runner with login: "+login+", not found.");
+        User user = userRepository.findByLogin(login)
+                .orElseThrow(() -> new NoSuchRecordException("User not found"));
+        if(encoder.matches(password, user.getPassword())) {
+            return user;
+        } else {
+            throw new UsernameNotFoundException("Wrong password");
         }
-        if(login.equals(user.getLogin())) {
-            if(password.equals(user.getPassword())) {
-                return user;
-            }
-        }
-        return null;
     }
-
-
 }

@@ -1,13 +1,13 @@
 package by.liashuk.exerciseproject.repository;
 
-import by.liashuk.exerciseproject.model.User;
+import by.liashuk.exerciseproject.model.Role;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface RoleRepository extends JpaRepository<Role, Integer> {
 
-    Optional<User> findByLogin(String login);
+    Optional<Role> findByRoleName(String name);
 }

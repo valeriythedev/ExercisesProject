@@ -4,7 +4,7 @@ import by.liashuk.exerciseproject.model.User;
 
 public interface UserService {
 
-    User create(User user);
+    User create(User user, String roleName);
 
     User getById(Integer id);
 
