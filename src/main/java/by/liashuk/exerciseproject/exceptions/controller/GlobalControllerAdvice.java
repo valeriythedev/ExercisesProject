@@ -1,38 +1,33 @@
 package by.liashuk.exerciseproject.exceptions.controller;
 
-
-import by.liashuk.exerciseproject.exceptions.InvalidDataException;
-import by.liashuk.exerciseproject.exceptions.NoSuchRecordException;
-import by.liashuk.exerciseproject.exceptions.NotAuthorizedException;
+import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-@RestControllerAdvice("by.liashuk.runnerProject.controller")
-@Slf4j
-public class GlobalControllerAdvice {
+import javax.validation.ConstraintViolationException;
 
-    @ExceptionHandler(InvalidDataException.class)
-    public ResponseEntity<ExceptionInfo> handleInvalidDataException(InvalidDataException exception) {
-        ExceptionInfo info = new ExceptionInfo(exception.getMessage(), HttpStatus.BAD_REQUEST);
-        log.warn("IN GlobalControllerAdvice handleInvalidDataException() exception: {}", exception.getMessage());
-        return new ResponseEntity<>(info, HttpStatus.BAD_REQUEST);
+@RestControllerAdvice("by.liashuk.exerciseproject.controller")
+public class GlobalControllerAdvice extends ResponseEntityExceptionHandler {
+
+    @ExceptionHandler(NullPointerException.class)
+    public ResponseEntity<ExceptionInfo> handleNullPointerException(NullPointerException exception) {
+        ExceptionInfo info = new ExceptionInfo(exception.getMessage(), exception.getStackTrace()[0].getFileName(), exception.getStackTrace()[0].getLineNumber(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(info, info.getStatus());
     }
 
-    @ExceptionHandler(NoSuchRecordException.class)
-    public ResponseEntity<ExceptionInfo> handleNoSuchRecordException(NoSuchRecordException exception) {
-        ExceptionInfo info = new ExceptionInfo(exception.getMessage(), HttpStatus.BAD_REQUEST);
-        log.warn("IN GlobalControllerAdvice handleNoSuchRecordException() exception: {}", exception.getMessage());
-        return new ResponseEntity<>(info, HttpStatus.BAD_REQUEST);
+    @ExceptionHandler(JwtException.class)
+    public ResponseEntity<ExceptionInfo> handleJwtException(JwtException exception) {
+        ExceptionInfo info = new ExceptionInfo(exception.getMessage(), exception.getStackTrace()[0].getFileName(), exception.getStackTrace()[0].getLineNumber(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(info, info.getStatus());
     }
 
-    @ExceptionHandler(NotAuthorizedException.class)
-    public ResponseEntity<ExceptionInfo> handleNotAuthorizedException(NotAuthorizedException exception) {
-        ExceptionInfo info = new ExceptionInfo(exception.getMessage(), HttpStatus.UNAUTHORIZED);
-        log.warn("IN GlobalControllerAdvice handleNotAuthorizedException() exception: {}",exception.getMessage());
-        info.setMessage("You should login to get access.");
-        return new ResponseEntity<>(info, HttpStatus.UNAUTHORIZED);
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ExceptionInfo> handleConstraintViolationException(ConstraintViolationException exception) {
+        ExceptionInfo info = new ExceptionInfo(exception.getMessage(), exception.getStackTrace()[0].getFileName(), exception.getStackTrace()[0].getLineNumber(), HttpStatus.BAD_REQUEST);
+        return new ResponseEntity<>(info, info.getStatus());
     }
 }

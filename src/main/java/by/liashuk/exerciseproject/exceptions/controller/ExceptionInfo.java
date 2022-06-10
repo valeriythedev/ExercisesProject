@@ -15,5 +15,11 @@ public class ExceptionInfo {
     private String message;
 
     @JsonProperty
+    private String fileName;
+
+    @JsonProperty
+    private Integer lineNumber;
+
+    @JsonProperty
     private HttpStatus status;
 }

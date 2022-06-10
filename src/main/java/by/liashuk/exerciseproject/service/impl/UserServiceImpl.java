@@ -1,14 +1,11 @@
 package by.liashuk.exerciseproject.service.impl;
 
-import by.liashuk.exerciseproject.exceptions.NoSuchRecordException;
 import by.liashuk.exerciseproject.model.Role;
 import by.liashuk.exerciseproject.model.User;
 import by.liashuk.exerciseproject.repository.RoleRepository;
 import by.liashuk.exerciseproject.repository.UserRepository;
 import by.liashuk.exerciseproject.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +29,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User create(User user, String roleName) {
         Role role = roleRepository.findByRoleName("ROLE_"+roleName)
-                .orElseThrow(() -> new NullPointerException("No role found."));
+                .orElseThrow(() -> new NullPointerException("Role not found."));
         List<Role> roleList = new ArrayList<>();
         roleList.add(role);
         user.setRoles(roleList);
@@ -49,11 +46,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByLoginAndPassword(String login, String password) {
         User user = userRepository.findByLogin(login)
-                .orElseThrow(() -> new NoSuchRecordException("User not found"));
+                .orElseThrow(() -> new NullPointerException("User not found"));
         if(encoder.matches(password, user.getPassword())) {
             return user;
         } else {
-            throw new UsernameNotFoundException("Wrong password");
+            throw new NullPointerException("Wrong password");
         }
     }
 }
