@@ -42,7 +42,7 @@ public class ExerciseServiceImpl implements ExerciseService {
     @Override
     public ExerciseEntity getReportByARange(Date rangeFrom, Date rangeTo, String token) {
         Integer userId = jwtTokenProvider.getUserId(token).orElseThrow(() -> new JwtException("JWT token is invalid or expired"));
-        List<Exercise> allUserExercises = exerciseRepository.findAllUserRuns(rangeFrom, rangeTo, userId);
+        List<Exercise> allUserExercises = exerciseRepository.getAllByUserIdAndRaceDateBetween(userId, rangeFrom, rangeTo);
         double averageSpeedForRun = 0.0;
         int runsCount = 0;
         double averageSpeed;
