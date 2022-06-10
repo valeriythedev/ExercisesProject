@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 
 @RestController
@@ -42,14 +43,14 @@ public class AuthController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/register")
     @Operation(summary = "Registering user")
-    public User register(@RequestBody @Parameter(description = "User body") User user, @RequestParam String role) {
+    public User register(@Valid @RequestBody @Parameter(description = "User body") User user, @RequestParam String role) {
         return userService.create(user, role);
     }
 
     @ResponseStatus(HttpStatus.OK)
     @PostMapping("/login")
     @Operation(summary = "Login and getting token")
-    public HashMap<Object, Object> login(@RequestBody @Parameter(description = "AuthenticationRequest body") User loginUser) {
+    public HashMap<Object, Object> login(@Valid @RequestBody @Parameter(description = "AuthenticationRequest body") User loginUser) {
         User user = userService.getByLoginAndPassword(loginUser.getLogin(), loginUser.getPassword());
         manager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getLogin(), loginUser.getPassword()));
         String token = provider.createToken(loginUser.getLogin(), user.getId(), user.getRoles());

@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
 import java.sql.Date;
 
 @RestController
@@ -36,7 +37,7 @@ public class ExercisesController {
     @ResponseStatus(HttpStatus.OK)
     @PostMapping
     @Operation(summary = "Creating exercise report")
-    public Exercise create(@RequestBody @Parameter(description = "Run report body") Exercise exercise, @RequestHeader("Authorization") String token) {
+    public Exercise create(@Valid @RequestBody @Parameter(description = "Run report body") Exercise exercise, @RequestHeader("Authorization") String token) {
         return exerciseService.create(exercise, token);
     }
 
