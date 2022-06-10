@@ -1,14 +1,15 @@
 package by.liashuk.exerciseproject.service;
 
-import by.liashuk.exerciseproject.dto.DateRange;
 import by.liashuk.exerciseproject.model.Exercise;
-import by.liashuk.exerciseproject.dto.ExercisesReport;
+import by.liashuk.exerciseproject.model.ExerciseEntity;
+
+import java.util.Date;
 
 public interface ExerciseService {
 
-    Exercise create(Exercise exercise, Integer userId);
+    Exercise create(Exercise exercise, String token);
 
     Exercise getById(Integer id);
 
-    ExercisesReport getReportForARange(DateRange range, Integer userId);
+    ExerciseEntity getReportByARange(Date rangeFrom, Date rangeTo, String token);
 }

@@ -1,24 +1,17 @@
 package by.liashuk.exerciseproject.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 @Data
@@ -46,16 +39,13 @@ public class Exercise {
     @Schema(description = "Date of exercise", example = "2022-05-26")
     private Date raceDate;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "exercises_users",
-            joinColumns = {@JoinColumn(name = "exercises_id", referencedColumnName = "id")},
-            inverseJoinColumns = {@JoinColumn(name = "users_id", referencedColumnName = "id")})
-    @JsonIgnore
-    private List<User> userList;
+    @Column(name = "user_id")
+    @Schema(description = "User id", example = "1")
+    private Integer userId;
 
     @Override
     public String toString() {
-        return "Run{" +
+        return "Exercise{" +
                 "id=" + id +
                 ", raceDistance=" + raceDistance +
                 ", raceDuration=" + raceDuration +

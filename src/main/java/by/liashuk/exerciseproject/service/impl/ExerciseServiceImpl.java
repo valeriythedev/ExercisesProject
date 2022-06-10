@@ -1,71 +1,61 @@
 package by.liashuk.exerciseproject.service.impl;
 
-import by.liashuk.exerciseproject.dto.Converter;
-import by.liashuk.exerciseproject.dto.DateRange;
-import by.liashuk.exerciseproject.exceptions.NoSuchRecordException;
 import by.liashuk.exerciseproject.model.Exercise;
-import by.liashuk.exerciseproject.dto.ExercisesReport;
-import by.liashuk.exerciseproject.model.User;
+import by.liashuk.exerciseproject.model.ExerciseEntity;
 import by.liashuk.exerciseproject.repository.ExerciseRepository;
-import by.liashuk.exerciseproject.repository.UserRepository;
+import by.liashuk.exerciseproject.security.JwtTokenProvider;
 import by.liashuk.exerciseproject.service.ExerciseService;
+import io.jsonwebtoken.JwtException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
 @Slf4j
 public class ExerciseServiceImpl implements ExerciseService {
 
+    private final JwtTokenProvider jwtTokenProvider;
     private final ExerciseRepository exerciseRepository;
-    private final UserRepository userRepository;
-    private final Converter converter;
 
     @Autowired
-    public ExerciseServiceImpl(ExerciseRepository exerciseRepository, UserRepository userRepository, Converter converter) {
+    public ExerciseServiceImpl(JwtTokenProvider jwtTokenProvider, ExerciseRepository exerciseRepository) {
+        this.jwtTokenProvider = jwtTokenProvider;
         this.exerciseRepository = exerciseRepository;
-        this.userRepository = userRepository;
-        this.converter = converter;
     }
 
     @Override
-    public Exercise create(Exercise exercise, Integer userId) {
-        Exercise checkedExerciseFields = converter.checkRunnerFields(exercise);
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new NoSuchRecordException(String.format("User with id=%s not found",userId)));
-        List<User> userList = new ArrayList<>();
-        userList.add(user);
-        checkedExerciseFields.setUserList(userList);
-        return exerciseRepository.save(checkedExerciseFields);
+    public Exercise create(Exercise exercise, String token) {
+        Integer userId = jwtTokenProvider.getUserId(token).orElseThrow(() -> new JwtException("JWT token is invalid or expired"));
+        exercise.setUserId(userId);
+        return exerciseRepository.save(exercise);
     }
 
     @Override
     public Exercise getById(Integer id) {
         return exerciseRepository.findById(id)
-                .orElseThrow(() -> new NoSuchRecordException(String.format("Exercise with id=%s not found",id)));
+                .orElseThrow(() -> new NullPointerException("Exercise not found"));
     }
 
     @Override
-    public ExercisesReport getReportForARange(DateRange range, Integer userId) {
-        List<Exercise> allUserExercises = exerciseRepository.findAllUserRuns(userId);
+    public ExerciseEntity getReportByARange(Date rangeFrom, Date rangeTo, String token) {
+        Integer userId = jwtTokenProvider.getUserId(token).orElseThrow(() -> new JwtException("JWT token is invalid or expired"));
+        List<Exercise> allUserExercises = exerciseRepository.findAllUserRuns(rangeFrom, rangeTo, userId);
         double averageSpeedForRun = 0.0;
         int runsCount = 0;
         double averageSpeed;
         double averageTime = 0.0;
         double totalDistance = 0.0;
-        String dateRange = range.getFirstDate().toString()+" | "+range.getSecondDate().toString();
+        String dateRange = rangeFrom + " | " + rangeTo;
         for(Exercise exercise : allUserExercises){
-            if(exercise.getRaceDate().after(range.getFirstDate()) && exercise.getRaceDate().before(range.getSecondDate())) {
-                averageSpeedForRun += exercise.getRaceDistance()/(exercise.getRaceDuration()*60);
-                averageTime += exercise.getRaceDuration();
-                totalDistance += exercise.getRaceDistance();
-                runsCount++;
-            }
+            averageSpeedForRun += exercise.getRaceDistance()/(exercise.getRaceDuration()*60);
+            averageTime += exercise.getRaceDuration();
+            totalDistance += exercise.getRaceDistance();
+            runsCount++;
         }
         averageSpeed = averageSpeedForRun/runsCount;
-        return new ExercisesReport(dateRange, averageSpeed+" m/s", averageTime+" minutes", totalDistance+"m");
+        return new ExerciseEntity(dateRange, averageSpeed+" m/s", averageTime+" min", totalDistance+" m");
     }
 }
