@@ -25,7 +25,7 @@ import java.util.HashMap;
         produces = MediaType.APPLICATION_JSON_VALUE,
         consumes = MediaType.APPLICATION_JSON_VALUE)
 @Tag(name = "Authentication Controller"
-        , description = "Login, Register, Logout functions")
+        , description = "Login, Register functions")
 public class AuthController {
 
     private final AuthenticationManager manager;
@@ -52,7 +52,7 @@ public class AuthController {
     public HashMap<Object, Object> login(@RequestBody @Parameter(description = "AuthenticationRequest body") User loginUser) {
         User user = userService.getByLoginAndPassword(loginUser.getLogin(), loginUser.getPassword());
         manager.authenticate(new UsernamePasswordAuthenticationToken(loginUser.getLogin(), loginUser.getPassword()));
-        String token = provider.createToken(loginUser.getLogin(), user.getRoles());
+        String token = provider.createToken(loginUser.getLogin(), user.getId(), user.getRoles());
         HashMap<Object, Object> response = new HashMap<>();
         response.put("login", user.getLogin());
         response.put("token", token);

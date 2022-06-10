@@ -1,7 +1,11 @@
 package by.liashuk.exerciseproject.security;
 
 import by.liashuk.exerciseproject.model.Role;
-import io.jsonwebtoken.*;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jws;
+import io.jsonwebtoken.JwtException;
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Component
 public class JwtTokenProvider {
@@ -45,8 +50,8 @@ public class JwtTokenProvider {
         secret = Base64.getEncoder().encodeToString(secret.getBytes());
     }
 
-    public String createToken(String login, List<Role> rolesList) {
-        Claims claims = Jwts.claims().setSubject(login);
+    public String createToken(String login, Integer userId, List<Role> rolesList) {
+        Claims claims = Jwts.claims().setSubject(login).setId(userId.toString());
         claims.put("roles", getRoleNames(rolesList));
 
         Date now = new Date();
@@ -65,6 +70,10 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
+    public Optional<Integer> getUserId(String token) {
+        return Optional.of(Integer.valueOf(Jwts.parser().setSigningKey(secret).parseClaimsJws(token.substring(7, token.length())).getBody().getId()));
+    }
+
     public String getLogin(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody().getSubject();
     }
@@ -77,15 +86,10 @@ public class JwtTokenProvider {
         return null;
     }
 
-    public boolean validateToken(String token) {
+    public boolean validateToken(String token) throws JwtException {
         try {
             Jws<Claims> claimsJws = Jwts.parser().setSigningKey(secret).parseClaimsJws(token);
-
-            if (claimsJws.getBody().getExpiration().before(new Date())) {
-                return false;
-            }
-
-            return true;
+            return !claimsJws.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new JwtException("JWT token is expired or invalid!");
         }
