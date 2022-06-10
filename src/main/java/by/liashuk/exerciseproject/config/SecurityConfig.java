@@ -18,6 +18,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final JwtTokenProvider provider;
 
     private static final String LOGIN_ENDPOINT = "/api/auth/**";
+    private static final String SWAGGER_ENDPOINT = "/**";
     private static final String EXERCISES_ENDPOINT = "/api/exercises/**";
 
     public SecurityConfig(JwtTokenProvider provider) {
@@ -32,7 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers(LOGIN_ENDPOINT);
+        web.ignoring().antMatchers(LOGIN_ENDPOINT).antMatchers(SWAGGER_ENDPOINT);
     }
 
     @Override
