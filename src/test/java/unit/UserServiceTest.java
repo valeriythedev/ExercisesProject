@@ -27,11 +27,12 @@ public class UserServiceTest {
     @Test
     void shouldCreateUser() {
         assertNotNull(userService);
-        User expectedUser = new User(null,"asd","asd");
-        User savedUser = userService.create(expectedUser);
+        User expectedUser = new User("asd","asd");
+        User savedUser = userService.create(expectedUser, "USER");
         assertNotNull(savedUser);
         expectedUser.setId(savedUser.getId());
         User actualUser = userService.getById(expectedUser.getId());
+        expectedUser.setPassword(actualUser.getPassword());
         assertEquals(expectedUser, actualUser);
         log.info("Executed test in UserServiceTest shouldCreateUser() expectedUser: {}, actualUser: {}",expectedUser,actualUser);
     }
@@ -39,8 +40,10 @@ public class UserServiceTest {
     @Test
     void shouldGetUserByLoginAndPassword() {
         assertNotNull(userService);
-        User expectedUser = new User(3, "123", "123");
+        User expectedUser = new User("valeriy", "valeriy");
         User actualUser = userService.getByLoginAndPassword(expectedUser.getLogin(), expectedUser.getPassword());
+        expectedUser.setId(actualUser.getId());
+        expectedUser.setPassword(actualUser.getPassword());
         assertEquals(expectedUser, actualUser);
         log.info("Executed test in UserServiceTest shouldGetUserByLoginAndPassword() login: {}, password: {}",expectedUser.getLogin(),expectedUser.getPassword());
     }

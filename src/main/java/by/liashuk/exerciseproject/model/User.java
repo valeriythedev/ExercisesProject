@@ -71,8 +71,7 @@ public class User {
         return Objects.hash(id, login, password);
     }
 
-    public User(Integer id, String login, String password) {
-        this.id = id;
+    public User(String login, String password) {
         this.login = login;
         this.password = password;
     }
